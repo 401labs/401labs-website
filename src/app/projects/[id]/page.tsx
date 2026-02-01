@@ -174,9 +174,6 @@ export default function ProjectDetails({ params }: ProjectDetailsProps) {
                 <>
                     <p className="text-xl text-foreground mb-6 font-medium">{project.longDescription}</p>
                     <p className="opacity-80">{project.mission}</p>
-                    <p className="opacity-80">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
                 </>
             )}
              {activeTab === "Features" && (
