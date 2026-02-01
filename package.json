@@ -1,7 +1,14 @@
 {
-  "name": "start",
+  "name": "401labs",
   "version": "0.1.0",
-  "private": true,
+  "description": "A modern, high-performance landing page for 401Labs built with Next.js, Tailwind CSS V4, and Shadcn UI.",
+  "private": false,
+  "author": "401Labs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/401labs/401labs.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
