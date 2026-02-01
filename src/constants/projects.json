@@ -17,7 +17,8 @@
     ],
     "developmentPeriod": "2025 - Present",
     "liveUrl": "https://lakshx.in",
-    "docsUrl": null
+    "docsUrl": null,
+    "gradientImage": "/images/gradients/gradient-1.jpg"
   },
   {
     "id": "anvesh",
@@ -35,6 +36,7 @@
     "developmentPeriod": "2026 - Present",
     "liveUrl": "",
     "docsUrl": "https://github.com/401labs/Anvesh",
-    "githubUrl": "https://github.com/401labs/Anvesh"
+    "githubUrl": "https://github.com/401labs/Anvesh",
+    "gradientImage": "/images/gradients/gradient-2.jpg"
   }
 ]

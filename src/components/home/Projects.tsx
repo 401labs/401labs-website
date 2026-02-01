@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   Card, 
   CardDescription, 
@@ -22,25 +23,7 @@ type Project = {
   cta?: string;
   layout: string;
   imageAlt: string;
-};
-
-// Vibrant, OpenAI-inspired mesh gradients
-const getGradient = (str: string) => {
-  const gradients = [
-    "bg-gradient-to-r from-rose-300 via-fuchsia-300 to-indigo-300",
-    "bg-gradient-to-r from-blue-300 via-cyan-300 to-emerald-300",
-    "bg-gradient-to-r from-amber-200 via-orange-300 to-rose-300",
-    "bg-gradient-to-r from-violet-300 via-purple-300 to-fuchsia-300",
-    "bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300",
-    "bg-gradient-to-r from-orange-300 via-rose-300 to-pink-300",
-  ];
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const index = Math.abs(hash) % gradients.length;
-  // Add opacity and saturation adjustments for that "pop"
-  return `${gradients[index]} saturate-150 brightness-110`;
+  gradientImage: string;
 };
 
 export function Projects() {
@@ -54,7 +37,6 @@ export function Projects() {
            // Define card classes based on layout
            const spanClass = project.layout === "featured" ? "lg:col-span-2" : "";
            const Icon = project.layout === "featured" ? ArrowUpRight : ArrowRight;
-           const gradient = getGradient(project.title);
 
            return (
              <Card key={project.id} className={`${spanClass} border-border/50 bg-card/50 backdrop-blur-sm hover:border-border transition-colors duration-300 overflow-hidden group flex flex-col`}>
@@ -65,7 +47,13 @@ export function Projects() {
                 {project.layout === "featured" && (
                     <div className="flex flex-col md:flex-row h-full">
                         {/* Image Left */}
-                        <div className={`md:w-1/2 min-h-[240px] ${gradient} relative`}>
+                        <div className="md:w-1/2 min-h-[240px] relative overflow-hidden">
+                             <Image 
+                                src={project.gradientImage} 
+                                alt={project.imageAlt} 
+                                fill 
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
                             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </div>
                         
@@ -95,8 +83,14 @@ export function Projects() {
                 */}
                 {project.layout === "vertical" && (
                     <div className="flex flex-col h-full">
-                        <div className={`h-48 ${gradient} relative`}>
-                            <div className="absolute top-4 left-4">
+                        <div className="h-48 relative overflow-hidden">
+                             <Image 
+                                src={project.gradientImage} 
+                                alt={project.imageAlt} 
+                                fill 
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
+                            <div className="absolute top-4 left-4 z-10">
                                 <Badge variant="secondary" className="backdrop-blur-md bg-background/80 text-xs font-mono uppercase tracking-wider">{project.status}</Badge>
                             </div>
                         </div>
@@ -117,24 +111,32 @@ export function Projects() {
 
                 {/* 
                    TEMPLATE: STANDARD (Image Middle) 
-                   Updated to include top-right arrow like vertical/featured
+                   Updated: Arrow moved to bottom right, gradients refined
                 */}
                 {project.layout === "standard" && (
                     <div className="p-6 h-full flex flex-col relative">
                         <div className="flex justify-between items-start mb-6">
                             <Badge variant="outline" className="text-xs font-mono uppercase tracking-wider">{project.status}</Badge>
-                             <Link href={`/projects/${project.id}`} className="flex items-center justify-center w-10 h-10 rounded-full border border-border bg-secondary/50 hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 group/link z-20 absolute top-6 right-6">
-                                <ArrowUpRight className="text-muted-foreground group-hover/link:text-white transition-colors size-5" />
-                            </Link>
                         </div>
-                        <div className={`mb-6 relative aspect-[2/1] rounded-lg overflow-hidden ${gradient}`}>
+                        <div className="mb-6 relative aspect-[2/1] rounded-lg overflow-hidden">
+                             <Image 
+                                src={project.gradientImage} 
+                                alt={project.imageAlt} 
+                                fill 
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
                         </div>
                         <CardTitle className="text-xl font-medium text-foreground mb-1">{project.title}</CardTitle>
                         <CardDescription className="text-muted-foreground text-xs leading-relaxed mb-4">{project.description}</CardDescription>
-                        <div className="mt-auto flex items-center gap-2">
-                             {project.tags?.map(tag => (
-                                <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground border border-border/50">{tag}</span>
-                            ))}
+                        <div className="mt-auto flex items-center justify-between gap-2">
+                             <div className="flex items-center gap-2 flex-wrap">
+                                {project.tags?.map(tag => (
+                                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground border border-border/50">{tag}</span>
+                                ))}
+                             </div>
+                             <Link href={`/projects/${project.id}`} className="flex items-center justify-center w-10 h-10 rounded-full border border-border bg-secondary/50 hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 group/link z-20">
+                                <ArrowUpRight className="text-muted-foreground group-hover/link:text-white transition-colors size-5" />
+                            </Link>
                         </div>
                     </div>
                 )}
